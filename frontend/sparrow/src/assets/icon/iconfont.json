@@ -1,0 +1,44 @@
+{
+  "id": "2511774",
+  "name": "sparrow",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "9851329",
+      "name": "点赞",
+      "font_class": "zan",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "8149013",
+      "name": "组",
+      "font_class": "zu",
+      "unicode": "e6a3",
+      "unicode_decimal": 59043
+    },
+    {
+      "icon_id": "12427315",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "e738",
+      "unicode_decimal": 59192
+    },
+    {
+      "icon_id": "12507428",
+      "name": "文件夹",
+      "font_class": "fold-close",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "15539271",
+      "name": "文档",
+      "font_class": "wendang",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}

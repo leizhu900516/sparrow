@@ -1,0 +1,64 @@
+html,body,#app{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+ul,li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+body{
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+.el-dialog__body {
+    padding: 10px 20px;
+}
+.el-dialog__header {
+    padding: 10px 20px 10px;
+}
+
+.body-container{
+    display: flex;
+    flex-direction: column
+}
+.main-containers-custom{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 16px 32px;
+    max-width: 1056px;
+}
+.top-left-right-bottom-container{
+    display: flex;
+    flex-direction: row
+}
+
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9!important;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.go-to-desc-title{
+    cursor: pointer;
+    color: #409EFF;
+}
+.font-size-30{
+    font-size: 30px!important;
+}
+
+.smallavatar{
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border-color: rgba(0, 0, 0, 0.06);
+    border-width: 1px;
+    border-style: solid;
+}
+.pagination-block{
+    text-align: center;
+    margin-top: 20px;
+}
