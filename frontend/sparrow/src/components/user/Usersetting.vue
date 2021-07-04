@@ -72,6 +72,7 @@
     },
     data() {
       return {
+        disabled:true,
         username:'',
         userdesc:'',
         settingFlag:1,
