@@ -65,7 +65,7 @@ func BookUpload(c *gin.Context){
 		Md5Str := hex.EncodeToString(md5c.Sum(nil))
 		defer out.Close()
 		nowDate :=  time.Now().Format("2006-01-02")
-		parentPath := "files/"+nowDate
+		parentPath := DataDir+nowDate
 		utils.MakeDir(parentPath)
 		var DataBuffer bytes.Buffer
 		DataBuffer.WriteString(parentPath)
@@ -226,9 +226,9 @@ func Upload(c *gin.Context){
 	filesep := strings.Split(_filename,".")
 	fileType = filesep[1]
 	if Find(fileType,imgType) {
-		filepath = "files/img/"
+		filepath = DataDir + "img/"
 	}else{
-		filepath = "files/file/"
+		filepath = DataDir + "file/"
 	}
 	//if Find(fileType,othersFileType) {
 	//	filepath = "files/file/"

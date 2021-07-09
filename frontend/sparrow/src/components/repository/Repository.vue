@@ -211,7 +211,7 @@
             cateid:'', // 知识库类型 1文档 2 文件
             doclist:[],
             file_dir_level:0,
-            uploadUrl:this.$http.defaults.baseURL + 'api/v1/upload',
+            uploadUrl:'api/v1/upload',
             formData:{ file_dir_level:this.file_dir_level, repo_unique_code:this.respUniqueCode },
             headers: { authorization: '' },
             page: 1,
