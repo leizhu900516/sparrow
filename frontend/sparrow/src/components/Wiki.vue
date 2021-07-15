@@ -199,7 +199,6 @@
           that.$http.get('api/v1/article?page=' + page).then(function (response) {
             if (response.data.code === 0) {
               if (response.data.data === null) {
-                console.log('no data')
                 that.isMore = false
                 that.$message.warning('还没有任何知识，赶快去创建吧！')
               } else {
