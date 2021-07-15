@@ -6,7 +6,7 @@
         <el-row :gutter="20">
           <el-col :span="6">
             <el-card shadow="never" class="userinfo">
-              <img :src="avatarurl !== 'null' ? avatarurl:require('@/assets/imgs/defaultAvator.png')" class="img-avatar">
+              <img :src="avatorMd5 !== 'null' ? avatarurl:require('@/assets/imgs/defaultAvator.png')" class="img-avatar">
               <h1>{{username}}</h1>
               <div>
                 <div>
@@ -79,6 +79,7 @@
             beFollowCount:'',
             docCount:'',
             avatarurl:'',
+            avatorMd5: '',
             RepositoryList:[],
             teams:[]
           }
@@ -95,10 +96,11 @@
               if (response.data.code === 0) {
                 if (response.data.data != null) {
                   var data = response.data.data
-                  console.log(data)
+                  // console.log(data)
                   that.followCount = data.followCount
                   that.beFollowCount = data.beFollowCount
                   that.docCount = data.docCount
+                  that.avatorMd5 = data.avatarMd5
                   that.avatarurl = window.location.origin + '/' + data.avatarurl
                   that.username = data.username
                 }
@@ -106,7 +108,7 @@
             })
           },
         gotoRepoWorkHome(respUniqueCode) {
-            console.log(respUniqueCode)
+            // console.log(respUniqueCode)
           this.$router.push({ name:'repoflag', params: { username:'chenhuachao',repoflag:respUniqueCode } })
         },
         getRepositoryList() {

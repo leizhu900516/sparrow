@@ -25,7 +25,7 @@
                         v-model="userdesc"></el-input>
               <span>头像</span>
               <div class="upload-avator">
-                <img class="smallavatar" :src="userinfo.avatarMd5 !== 'null' ? userinfo.avatarurl:avatorUrl">
+                <img class="smallavatar" :src="avatorMd5 !== 'null' ? userinfo.avatarurl:avatorUrl">
                 <el-upload
                   class="upload-demo"
                   :action="uploadApi"
