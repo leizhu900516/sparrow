@@ -20,7 +20,7 @@
     </el-header>
     <el-main class="main-containers">
       <div class="ArticleDetail">
-        <div ref="editor" style="text-align:left" v-html="content"></div>
+        <p class="ql-editor" ref="editor" style="text-align:left" v-html="content"></p>
       </div>
     </el-main>
     <Footer></Footer>
