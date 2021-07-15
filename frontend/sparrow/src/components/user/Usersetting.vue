@@ -89,7 +89,7 @@
     },
     created() {
       this.getUserinfo()
-      this.uploadApi = this.$http.defaults.baseURL + 'api/v1/upload'
+      this.uploadApi = window.location.origin + '/api/v1/upload'
       this.headers = { authorization: window.localStorage.getItem('token') }
     },
     methods: {
@@ -136,7 +136,7 @@
               var data = response.data.data
               that.userinfo = data
               that.avatorMd5 = data.avatarMd5
-              that.userinfo.avatarurl = that.$http.defaults.baseURL + that.userinfo.avatarurl
+              that.userinfo.avatarurl = window.location.origin + '/' + that.userinfo.avatarurl
             }
           }
         })

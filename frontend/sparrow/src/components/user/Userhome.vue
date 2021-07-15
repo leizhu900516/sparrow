@@ -99,7 +99,7 @@
                   that.followCount = data.followCount
                   that.beFollowCount = data.beFollowCount
                   that.docCount = data.docCount
-                  that.avatarurl = that.$http.defaults.baseURL + data.avatarurl
+                  that.avatarurl = window.location.origin + '/' + data.avatarurl
                   that.username = data.username
                 }
               }
