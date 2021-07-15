@@ -57,6 +57,7 @@
 </template>
 
 <script>
+  import { Loading } from 'element-ui'
     export default {
       name: 'Upload',
       created() {
@@ -125,7 +126,8 @@
           formData.append('filecate', this.bookcate)
           formData.append('avator', this.avator)
           formData.append('file', this.file)
-          console.log(formData)
+          // console.log(formData)
+          const loadingInstance = Loading.service({ fullscreen: true })
           this.$http.post(window.location.origin + '/' + 'api/v1/book/upload', formData)
             .then(su => {
               if (su.data.code === 0) {
@@ -141,6 +143,7 @@
             .catch(err => {
               console.log(err)
             })
+          loadingInstance.close()
         },
         handleChange(file, fileList) {
           this.fileList = fileList.slice(-3)
