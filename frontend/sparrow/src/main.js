@@ -9,7 +9,7 @@ import store from './store/store'
 import axios from 'axios'
 Vue.prototype.$http = axios
 // axios.defaults.baseURL = config.backendurl
-axios.defaults.timeout = 10000
+axios.defaults.timeout = 60000
 // axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded;charset=UTF-8'
