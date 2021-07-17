@@ -30,7 +30,7 @@
               action=""
               class="avatar-uploader"
               :show-file-list="false"
-              :before-upload="beforeAvatarUpload"
+              :before-upload="beforeAvatarUploadImg"
               :auto-upload="false"
               :on-change="imgBroadcastChange" >
               <img v-if="imageUrl" :src="imageUrl" class="avatar">
@@ -42,6 +42,7 @@
               ref="upload"
               action=""
               :file-list="fileList"
+              :before-upload="beforeAvatarUploadBook"
               :on-change="fileBroadcastChange"
               :auto-upload="false">
               <el-button slot="trigger" size="small" type="success">选取图书文件</el-button>
@@ -91,7 +92,7 @@
         handleAvatarSuccess(res, file) {
           this.imageUrl = URL.createObjectURL(file.raw)
         },
-        beforeAvatarUpload(file) {
+        beforeAvatarUploadImg(file) {
           const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
           const isLt2M = file.size / 1024 / 1024 < 2
 
@@ -102,6 +103,13 @@
             this.$message.error('上传头像图片大小不能超过 2MB!')
           }
           return isJPG && isLt2M
+        },
+        beforeAvatarUploadBook(file) {
+          const isLt2M = file.size / 1024 / 1024 < 512
+          if (!isLt2M) {
+            this.$message.error('上传头像图片大小不能超过 512MB!')
+          }
+          return isLt2M
         },
         // 图书封面信息获取
         imgBroadcastChange(file, fileList) {
@@ -132,18 +140,21 @@
             .then(su => {
               if (su.data.code === 0) {
                 this.$message.success(su.data.msg)
+                loadingInstance.close()
                 setTimeout(this.$router.push('/book'), 1500)
               } else if (su.data.code === 403) {
+                loadingInstance.close()
                 this.$router.push('/login')
                 this.$message.error(su.data.msg)
               } else {
+                loadingInstance.close()
                 this.$message.error(su.data.msg)
               }
             })
             .catch(err => {
               console.log(err)
+              loadingInstance.close()
             })
-          loadingInstance.close()
         },
         handleChange(file, fileList) {
           this.fileList = fileList.slice(-3)

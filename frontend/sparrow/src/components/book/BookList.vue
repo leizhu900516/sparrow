@@ -28,8 +28,10 @@
       <el-col :span="4" v-for="book in booklist" v-bind:key="book.id">
         <el-card :body-style="{ padding: '0px' }">
           <img :src="book.avatorurl" class="image">
-          <div style="padding: 10px;font-size: 14px;">
-            <span class="book-name">{{ book.name }}</span>
+          <div class="book-item">
+            <el-tooltip class="item" effect="dark" :content="book.name" placement="top-start">
+              <span class="book-name">{{ book.name }}</span>
+            </el-tooltip>
             <div class="bottom clearfix">
               <i class="el-icon-download">{{ book.download }}</i>
               <el-button type="text" class="button" @click="downloadBook(book.id)"><i class="el-icon-download"></i>下载</el-button>
@@ -66,7 +68,6 @@
       getBookCate() {
         var that = this
         that.$http.get('/api/v1/book/cate').then(function (response) {
-            console.log('>>>>',response.data.data)
           if (response.data.code === 0) {
             that.options = response.data.data
           }
@@ -77,13 +78,21 @@
         var that = this
         that.$http.get('/api/v1/books?flag=' + flag + '&kw=' + kw + '&rank=' + hot).then(function (response) {
           console.log('>>>>',response.data.data)
+          that.booklist = []
+
           if (response.data.code === 0) {
+            if (response.data.data === null) {
+              that.$message.warning('没有找到相关图书')
+              return
+            }
             that.booklist = response.data.data
             if (that.booklist !== null) {
               that.booklist.forEach((item,index,arr) =>{
                 item.avatorurl = window.location.origin + '/' + item.avatorurl
               })
             }
+          } else {
+            that.$message.error(response.data.msg)
           }
         })
       },
@@ -137,6 +146,7 @@
   .image {
     width: 100%;
     display: block;
+    height: 200px;
   }
   .clearfix:before,
   .clearfix:after {
@@ -161,6 +171,12 @@
   .book-name{
     overflow: hidden;
     text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  .book-item{
+    padding: 10px;font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 </style>

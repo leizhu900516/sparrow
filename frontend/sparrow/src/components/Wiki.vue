@@ -16,7 +16,7 @@
               <span class="no-data-span">没有任何知识哦</span>
             </div>
             <span v-if="wikiloading === true">正在加载...</span>
-            <ul v-loading="wikiloading">
+            <ul  class="wiki-list">
               <li class="wiki-card" v-for="article in articlelist" v-bind:key="article.id">
                 <el-row :gutter="12">
                   <el-col :span="2" >
@@ -167,6 +167,7 @@
 <script>
     import Header from './headerAndFooter/Header'
     import Footer from './headerAndFooter/Footer'
+    import { Loading } from 'element-ui'
     export default {
       name: 'Wiki',
       data() {
@@ -179,7 +180,7 @@
           page: 1,
           isMore: true,
           moments: [],
-          wikiloading: true,
+          // wikiloading: true,
           hotArticleLoading: true,
           hotRepoLoading: true
         }
@@ -195,6 +196,7 @@
       },
       methods: {
         getArticleList(page) {
+          const loadingInstance1 = Loading.service({ fullscreen: true })
           var that = this
           that.$http.get('api/v1/article?page=' + page).then(function (response) {
             if (response.data.code === 0) {
@@ -212,7 +214,7 @@
                   that.articlelist.push(article)
                 }
               }
-              that.wikiloading = false
+              loadingInstance1.close()
             }
           })
         },
@@ -306,9 +308,21 @@
   padding: 20px 16px 32px;
   max-width: 1056px;
 }
-  .wiki-card{
-    border: 1px solid #EBEEF5;
-    padding: 5px;
+.wiki-list li+li{
+  border-left: 1px solid #EBEEF5;
+  border-right: 1px solid #EBEEF5;
+  border-bottom: 1px solid #EBEEF5;
+  padding: 5px;
+}
+.wiki-list li:first-child{
+    border-top: 1px solid #EBEEF5;
+    border-left: 1px solid #EBEEF5;
+    border-right: 1px solid #EBEEF5;
+  border-bottom: 1px solid #EBEEF5;
+  padding: 5px;
+}
+  .wiki-card:first-child{
+    border-top: 1px solid #EBEEF5;
   }
   .goodicon{
     margin-top: 20px;
@@ -322,13 +336,14 @@
   }
   .goodicon-can-click{
     cursor: pointer;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 100;
+    color: #409EFF;
   }
   .goodicon-not-click{
     cursor:not-allowed;
     color: #C0C4CC;
-    font-size: 25px;
+    font-size: 20px;
   }
   .article-desc{
     font-size: 14px;
@@ -365,7 +380,11 @@
   }
   .hot-article-title span:nth-child(1){
     font-weight: bold;
-    margin-right: 5px;
+    color: #C0C4CC;
+    margin-right: 10px;
+  }
+  .hot-article-title:hover{
+    color: #409EFF;
   }
   .change-card{
     height: 500px;

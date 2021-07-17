@@ -61,12 +61,9 @@ func GetBookList(c *gin.Context){
 	intOffset,_ := strconv.Atoi(offset)
 	intSize,_ := strconv.Atoi(size)
 	switch cate {
-	case "1":
-		sql += fmt.Sprintf(" where b_cate_id = %d ",1)
-	case "2":
-		sql += fmt.Sprintf(" where b_cate_id = %d ",2)
+	case "all":
 	default:
-
+		sql += fmt.Sprintf(" where b_cate_id = %s ",cate)
 	}
 	if kw != "" {
 		if !strings.Contains(sql,"where"){
