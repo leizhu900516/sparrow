@@ -27,8 +27,8 @@
                     </div>
                   </el-col>
                   <el-col :span="18">
-                    <div >
-                      <h4 class="title" @click="gotoArticleDesc(article.ar_unique_code)"> {{article.title}}</h4>
+                    <div class="article-item">
+                      <span class="title" @click="gotoArticleDesc(article.ar_unique_code)"> {{article.title}}</span>
                       <p class="article-desc">{{article.desc}}</p>
                       <div class="article-info">
                         <el-popover
@@ -178,6 +178,7 @@
           hotRepositoryList: [],
           isActive: 1,
           page: 1,
+          size:10,
           isMore: true,
           moments: [],
           // wikiloading: true,
@@ -198,12 +199,16 @@
         getArticleList(page) {
           const loadingInstance1 = Loading.service({ fullscreen: true })
           var that = this
-          that.$http.get('api/v1/article?page=' + page).then(function (response) {
+          that.$http.get('api/v1/article?page=' + page + '&size=' + that.size).then(function (response) {
             if (response.data.code === 0) {
               if (response.data.data === null) {
                 that.isMore = false
                 that.$message.warning('还没有任何知识，赶快去创建吧！')
               } else {
+                const count = response.data.count
+                if (that.size * page >= count) {
+                  that.isMore = false
+                }
                 for (var i = 0; i < response.data.data.length; i++) {
                   var article = response.data.data[i]
                   if (article.user.avatarurl.indexOf('null') === -1) {
@@ -325,7 +330,7 @@
     border-top: 1px solid #EBEEF5;
   }
   .goodicon{
-    margin-top: 20px;
+    margin-top: 7px;
     margin-left: 13px;
     width: 38px;
     display: flex;
@@ -360,9 +365,13 @@
     cursor: pointer;
     font-size: 18px;
     color: #262626;
+    font-weight: 400;
   }
   .active{
     font-weight: bold;
+  }
+  .article-item{
+    padding: 6px;
   }
   .load-more{
     text-align: center;

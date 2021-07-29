@@ -57,7 +57,7 @@ func BookUpload(c *gin.Context){
 			filename = f.Filename
 		}
 		_filename := f.Filename
-		size =  utils.FormatFileSize(file.Size)
+		size =  utils.FormatFileSize(f.Size)
 		ext :=strings.Split(_filename,".")[1]
 		md5c := md5.New()
 		out,_ := f.Open()
