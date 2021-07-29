@@ -30,7 +30,9 @@
           <img :src="book.avatorurl" class="image">
           <div class="book-item">
             <el-tooltip class="item" effect="dark" :content="book.name" placement="top-start">
-              <span class="book-name">{{ book.name }}</span>
+              <div class="book-name">
+                {{ book.name }}
+              </div>
             </el-tooltip>
             <div class="bottom clearfix">
               <i class="el-icon-download">{{ book.download }}</i>
@@ -169,14 +171,15 @@
     justify-content: flex-end;
   }
   .book-name{
+    text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   .book-item{
     padding: 10px;font-size: 14px;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 </style>
