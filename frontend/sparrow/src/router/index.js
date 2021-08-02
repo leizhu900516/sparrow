@@ -21,6 +21,7 @@ import SearchHome from '../components/search/SearchHome'
 import NewTeam from '../components/team/NewTeam'
 import WikiEdit from '../components/Article/WikiEdit'
 import Invitation from '../components/Invitation'
+import Syssetting from '../components/Syssetting'
 Vue.use(VueRouter)
 
 const routes = [
@@ -137,6 +138,11 @@ const routes = [
     path: '/setting',
     name: 'usersetting',
     component: Usersetting
+  },
+  {
+    path: '/sys/setting',
+    name: 'syssetting',
+    component: Syssetting
   },
   {
     path: '/search',

@@ -28,6 +28,7 @@
           <template slot="title" v-if="username === ''"><i class="el-icon-user-solid" ></i>未登录</template>
           <el-menu-item :index="username">个人主页</el-menu-item>
           <el-menu-item index="/setting">账户设置</el-menu-item>
+          <el-menu-item index="/sys/setting">系统设置</el-menu-item>
           <el-menu-item @click="logout">退出</el-menu-item>
         </el-submenu>
       </el-menu>

@@ -42,6 +42,39 @@ func GetBookCate(c *gin.Context){
 	})
 }
 
+
+
+// 添加图书分类接口
+type BookCate struct {
+	Name string `json:"name"`
+	Id int   	`json:"id"`
+}
+func AddBookCate(c *gin.Context) {
+	var rJson map[string]interface{}
+	var sql string
+	form := &BookCate{}
+	if err := c.ShouldBind(form);err != nil{
+		utils.Logger.Error("图书分类表单提交错误" + err.Error())
+		rJson = ReturnData(1,"",err.Error())
+	}else{
+		name := form.Name
+		id := form.Id
+		if id == 0 { // 添加新分类
+			sql = fmt.Sprintf("insert into sp_book_cate (cate_name) values ('%s')",name )
+		} else { // 更新分类信息
+			sql = fmt.Sprintf("update  sp_book_cate set cate_name =' %s' where id= %d",name,id)
+		}
+		result,err := Db.Exec(sql)
+		if err !=nil{
+			utils.Logger.Error("图书分类表单写入错误")
+			rJson = ReturnData(1,"",err.Error())
+		}else {
+			insertID,_ := result.RowsAffected()
+			rJson = ReturnData(0,insertID,"success")
+		}
+	}
+	c.JSON(http.StatusOK,rJson)
+}
 func GetBookList(c *gin.Context){
 	var (
 		id int
@@ -102,4 +135,19 @@ func GetBookList(c *gin.Context){
 		"data":datas,
 		"msg":msg,
 	})
+}
+
+
+// 删除图书分类接口
+func DelBookCate(c *gin.Context) {
+	var cid = c.Param("cid")
+	var rJson  map[string]interface{}
+	result,err :=Db.Exec("delete from sp_book_cate where id =?",cid)
+	if err != nil{
+		rJson = ReturnData(1,"",err.Error())
+		c.JSON(http.StatusOK,rJson)
+	}
+	affectId,_ := result.RowsAffected()
+	rJson = ReturnData(0,affectId,"success")
+	c.JSON(http.StatusOK,rJson)
 }
