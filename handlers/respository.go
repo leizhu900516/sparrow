@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"database/sql"
 	"go.uber.org/zap"
 	"log"
 	"net/http"
@@ -289,7 +290,6 @@ func GetRidrespositorys(c *gin.Context) {
 		fileDirLevelId int
 		filecateName string
 		count int
-
 		createtime *time.Time
 		datas []interface{}
 		rJson map[string]interface{}
@@ -344,20 +344,23 @@ func GetRidrespositorys(c *gin.Context) {
 			}
 			//sql := "select s1.id,s1.filename,s1.filetype,s1.createtime,s1.size,s2.name,s2.id from sparrow.sp_files s1 " +
 			//	"left join sparrow.sp_filecate s2 on s1.file_dir_level = s2.id where s1.repo_unique_code = ? and s1.file_dir_level = ?"
-			sql := "select d.id,d.doc_md5,d.doc_name,f.filetype,d.createtime,f.size,s2.name,f.id from sp_doc as d left join sp_files f on d.doc_md5 = f.md5 " +
+			sqlStr := "select d.id,d.doc_md5,d.doc_name,f.filetype,d.createtime,f.size,s2.name,f.id from sp_doc as d left join sp_files f on d.doc_md5 = f.md5 " +
 				" left join sp_filecate s2 on d.file_dir_level = s2.id where d.repo_unique_code = ? and d.file_dir_level = ?"
 			if kw != "" {
-				sql += " and d.doc_name like '"+kw+"%'"
+				sqlStr += " and d.doc_name like '"+kw+"%'"
 			}
-			sql += fmt.Sprintf(" limit %d,%d",intSize*(intOffset -1),intSize)
-			rows,err := Db.Query(sql,repoflag,fileDirLevelId)
+			sqlStr += fmt.Sprintf(" limit %d,%d",intSize*(intOffset -1),intSize)
+
+			rows,err := Db.Query(sqlStr,repoflag,fileDirLevelId)
+			fmt.Println(sqlStr)
 			if err != nil{
 				log.Println(err.Error())
 				rJson = ReturnData(1,"",err.Error())
 			}else{
 				for rows.Next(){
+					tmpfileExt := sql.NullString{String:"",Valid:false}
 					data := make(map[string]interface{})
-					rows.Scan(&id,&md5Str,&filename,&fileExt,&createtime,&size,&filecateName,&fileDirLevelId)
+					rows.Scan(&id,&md5Str,&filename,&tmpfileExt,&createtime,&size,&filecateName,&fileDirLevelId)
 					data["id"] = id
 					data["filename"] = filename
 					data["createtime"] = createtime.Format("2006-01-02 15:04")
