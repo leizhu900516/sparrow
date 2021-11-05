@@ -23,10 +23,10 @@
                 <el-input placeholder="请输入名称" class="repository_name" @change="inputTeamName" v-model="reponame"></el-input>
                 <div class="new_type">
                   <div @click="changeSelectStatus(1)"  v-bind:class="{ active: repotype === 1 }" class="typeitem">
-                    <i class="el-icon-document big-icon-40"></i><span>文档知识库</span>
+                    <i class="el-icon-document big-icon-40"></i><span style="margin-left: 10px">文档知识库</span>
                   </div>
                   <div @click="changeSelectStatus(2)"  v-bind:class="{ active: repotype === 2  }" class="typeitem">
-                    <i class="el-icon-folder big-icon-40"></i><span>资源知识库</span>
+                    <i class="el-icon-folder big-icon-40"></i><span style="margin-left: 10px">资源知识库</span>
                   </div>
                 </div>
                 <span class="rep_desc">简介</span>
@@ -191,7 +191,8 @@
   }
 
   .active{
-    background-color: #faf9fc;
+    background-color: #409EFF;
+    color: #ffff;
   }
   .typeitem{
     height: 50px;
