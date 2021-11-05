@@ -4,13 +4,14 @@
     <Header></Header>
     <el-main  class="main-containers-custom" style="width: 100%">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="4">
           <ul class="syssetting-item">
             <li :class="{isActive:settingFlag == 1}" @click="changeSetting(1)">图书分类</li>
+            <li :class="{isActive:settingFlag == 3}" @click="changeSetting(3)">图书管理</li>
             <li :class="{isActive:settingFlag == 2}" @click="changeSetting(2)">用户管理</li>
           </ul>
         </el-col>
-        <el-col :span="18">
+        <el-col :span="20">
           <el-card shadow="never" v-if="settingFlag==1" >
             <div slot="header" class="book-header">
               <span>图书分类管理</span>
@@ -48,6 +49,14 @@
           <el-card shadow="never" v-if="settingFlag==2" >
             <div slot="header">
               <span>用户管理</span>
+            </div>
+            <div class="">
+              <span>等待开发...</span>
+            </div>
+          </el-card>
+          <el-card shadow="never" v-if="settingFlag==3" >
+            <div slot="header">
+              <span>图书管理</span>
             </div>
             <div class="">
               <span>等待开发...</span>
@@ -198,12 +207,14 @@
   .syssetting-item li{
     border-bottom: 1px solid #dcdfe6;
     padding: 10px;
+    font-size: 15px;
   }
   .syssetting-item li:nth-last-child(1){
     border-bottom: none;
   }
   .isActive {
-    border-left: 3px solid #409EFF;
+    background-color: #F2F6FC;
+    color: #409EFF;
   }
   .smallavatar{
     height: 40px;
