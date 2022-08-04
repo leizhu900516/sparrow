@@ -50,7 +50,7 @@ source /root/sparrow.sql;
 
 1.  克隆仓库 
 ```shell script
-git clone https://gitee.com/leizhu/sparrow.git
+git clone git@github.com:leizhu900516/sparrow.git
 ```
 2.  进入sparrow目录，执行make
 ```shell script
