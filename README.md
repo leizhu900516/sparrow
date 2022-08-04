@@ -44,9 +44,9 @@ source /root/sparrow.sql;
 
 #### 前端安装教程(nginx需要提前安装)
 1. 将 frontend的dist目录复制到部署主机某目录下
-2. 复制sparrow.conf到ngingx的conf目录下，并修改配置文件中的后端地址和该项目的地址
+2. 复制frontend/sparrow.conf到ngingx的conf目录下，并修改配置文件中的后端地址和该项目的地址
 3. 重启nginx即可
-#### 后端编译安装教程
+#### 后端编译安装教程(需提前配置go环境)
 
 1.  克隆仓库 
 ```shell script
@@ -55,11 +55,16 @@ git clone https://gitee.com/leizhu/sparrow.git
 2.  进入sparrow目录，执行make
 ```shell script
 cd sparrow
+go mod vendor
 make
 ```
-3.  编译后的可执行文件在 output目录下,进入output执行下面命令即可。（配置文件可修改output目录下的config/config.ini）
+3.  编译后的可执行文件在 output目录下,进入output执行下面命令即可。(配置文件可修改output目录下的config/config.ini;可修改数据库配置信息、后台服务端口)
 ```shell script
 ./bin/sparrow 
+```
+4. 后台启动
+```shell
+nohup ./bin/sparrow  &
 ```
 
 #### 使用说明

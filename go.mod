@@ -10,6 +10,6 @@ require (
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20190510104115-cbcb75029529
-	gorm.io/driver/mysql v1.0.5
+	golang.org/x/sys v0.0.0-20220803195053-6e608f9ce704 // indirect
 	gorm.io/gorm v1.21.5
 )
