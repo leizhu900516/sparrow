@@ -21,3 +21,4 @@ sparrow-services.log
 *.log
 #doc
 data/
+output

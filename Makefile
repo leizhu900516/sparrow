@@ -22,7 +22,7 @@ install:
 	mkdir -p $(SPARROW_BIN_PATH)
 	mv $(SPARROW_BIN) $(SPARROW_BIN_PATH)/sparrow
 	mkdir -p $(SPARROW_ETC_PATH)
-	cp ./utils/config.ini $(SPARROW_ETC_PATH)/config.ini
+	cp ./config/config.ini $(SPARROW_ETC_PATH)/config.ini
 	@echo ">>> install sparrow complete"
 
 .PHONY: clean
