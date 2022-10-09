@@ -13,7 +13,7 @@ module.exports = {
         https: false, // 启用https
         proxy: {
             '/api': {
-                target: 'http://0.0.0.0:12345',
+                target: 'http://localhost:12345',
                 changeOrigin: true,
                 secure: false,
                 pathRewrite: {

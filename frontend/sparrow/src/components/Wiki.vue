@@ -235,6 +235,7 @@
         getRepositoryList() {
           var that = this
           that.$http.get('api/v1/repository?flag=hot&page=1&limit=7').then(function (response) {
+            console.log('>>>',response)
             if (response.data.code === 0) {
               that.hotRepositoryList = response.data.data
               that.hotRepoLoading = false

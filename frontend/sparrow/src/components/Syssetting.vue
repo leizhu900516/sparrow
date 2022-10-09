@@ -21,6 +21,7 @@
               <template>
                 <el-table
                   :data="bookcate"
+                  key="bookcate"
                   border
                   style="width: 100%">
                   <el-table-column
@@ -59,7 +60,38 @@
               <span>图书管理</span>
             </div>
             <div class="">
-              <span>等待开发...</span>
+              <template>
+                <el-table
+                  :data="books"
+                  border
+                  key="books"
+                  style="width: 100%">
+                  <el-table-column
+                    prop="id"
+                    label="序号"
+                    style="width: 10%">
+                  </el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="图书名称"
+                    style="width: 30%">
+                  </el-table-column>
+                  <el-table-column
+                    prop="catename"
+                    label="图书分类"
+                    style="width: 30%">
+                  </el-table-column>
+                  <el-table-column
+                    prop="id"
+                    label="操作"
+                    style="width: 30%">
+                    <template slot-scope="scope">
+<!--                      <el-button type="primary" icon="el-icon-edit" size="small" @click="editBookCate(scope.row)"></el-button>-->
+                      <el-button type="danger" icon="el-icon-delete" size="small" @click="delBook(scope.row.id)"></el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </template>
             </div>
           </el-card>
         </el-col>
@@ -97,6 +129,7 @@
       return {
         disabled:true,
         bookcate: [],
+        books: [],
         updateBookCateId: '',
         formLabelWidth: '120px',
         bookCateForm: {
@@ -112,6 +145,9 @@
     methods: {
       changeSetting(flag) {
         this.settingFlag = flag
+        if (flag === 3) {
+          this.getBookList()
+        }
       },
       cancelBookCateForm() {
         this.dialogFormWithAddBookCate = false
@@ -174,6 +210,25 @@
           // 取消的时候，什么也不做
         })
       },
+      delBook(id) {
+        var that = this
+        that.books.splice(id,1)
+        that.$confirm('删除不可恢复，是否确定删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          that.$http.delete('api/v1/book/del/' + id).then(function (respoonse) {
+            if (respoonse.data.code === 0) {
+              that.$message.success(respoonse.data.msg)
+            } else {
+              that.$message.error(respoonse.data.msg)
+            }
+          })
+        }).catch(() => {
+          // 取消的时候，什么也不做
+        })
+      },
       getBookCateList() {
         var that = this
         that.$http.get('api/v1/book/cate')
@@ -184,6 +239,18 @@
               that.$message.error(response.data.msg)
             }
           })
+      },
+      getBookList() {
+        var that = this
+        that.$http.get('api/v1/books')
+        .then(function (response) {
+          console.log(response)
+          if (response.data.code === 0) {
+            that.books = response.data.data
+          } else {
+            that.$message.error(response.data.msg)
+          }
+        })
       }
     }
   }
