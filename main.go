@@ -54,7 +54,7 @@ func main() {
 		api.POST("/book/cate", handlers.AddBookCate)        //添加图书分类
 		api.GET("/books", handlers.GetBookList)             //获取图书列表
 		api.DELETE("/book/cate/:cid", handlers.DelBookCate) //删除图书分类
-		api.DELETE("/book/del/:bookid", handlers.DelBook)   //删除图书分类
+		api.DELETE("/book/del/:bookid", handlers.DelBook)   //删除图书
 		// 文章
 		api.POST("/article", handlers.AddArticle)           // 更新和新增是否一起
 		api.GET("/article", handlers.GetArticle)            // 获取全部文章

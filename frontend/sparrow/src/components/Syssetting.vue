@@ -26,7 +26,7 @@
                   style="width: 100%">
                   <el-table-column
                     prop="id"
-                    label="序号"
+                    label="ID"
                     style="width: 10%">
                   </el-table-column>
                   <el-table-column
@@ -68,7 +68,7 @@
                   style="width: 100%">
                   <el-table-column
                     prop="id"
-                    label="序号"
+                    label="ID"
                     style="width: 10%">
                   </el-table-column>
                   <el-table-column

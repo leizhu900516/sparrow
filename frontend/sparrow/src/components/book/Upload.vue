@@ -21,7 +21,7 @@
               </el-option>
             </el-select>
             <el-divider></el-divider>
-            <el-input placeholder="请输入图书名称"
+            <el-input placeholder="请输入图书名称;默认获取上传文件名称"
                       class="repository_name"
                       @change="changefilename"
                       v-model="fileName"></el-input>
@@ -115,9 +115,9 @@
         imgBroadcastChange(file, fileList) {
           this.imageUrl = URL.createObjectURL(file.raw)
           this.avator = file.raw
-          if (!this.fileName) {
-            this.fileName = file.name
-          }
+          // if (!this.fileName) {
+          //   this.fileName = file.name
+          // }
         },
         // 文件信息获取
         fileBroadcastChange(file, fileList) {

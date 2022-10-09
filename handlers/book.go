@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
+	"os"
 	"sparrow/utils"
 	"strconv"
 	"strings"
@@ -157,14 +158,38 @@ func DelBookCate(c *gin.Context) {
 // 删除图书接口
 
 func DelBook(c *gin.Context) {
-	var bookid = c.Param("bookid")
-	var rJson map[string]interface{}
-	result, err := Db.Exec("delete from sp_book where id =?", bookid)
+	var (
+		bookid     = c.Param("bookid")
+		rJson      map[string]interface{}
+		bUrl       string
+		bAvatorUrl string
+	)
+	bookDetail := Db.QueryRow("select b_url,b_avator_url from sp_book where id = ?", bookid)
+	err := bookDetail.Scan(&bUrl, &bAvatorUrl)
 	if err != nil {
 		rJson = ReturnData(1, "", err.Error())
 		c.JSON(http.StatusOK, rJson)
+	} else {
+		if bUrl != "" {
+			if utils.Isfile(bUrl) {
+				if err = os.Remove(bUrl); err != nil {
+					utils.Logger.Error("删除图书文件出错"+bUrl, zap.String("error", err.Error()))
+				}
+			}
+			if utils.Isfile(bAvatorUrl) {
+				if err = os.Remove(bAvatorUrl); err != nil {
+					utils.Logger.Error("删除图书文件出错"+bAvatorUrl, zap.String("error", err.Error()))
+				}
+			}
+		}
+		result, err := Db.Exec("delete from sp_book where id =?", bookid)
+		if err != nil {
+			rJson = ReturnData(1, "", err.Error())
+			c.JSON(http.StatusOK, rJson)
+		}
+		affectId, _ := result.RowsAffected()
+		rJson = ReturnData(0, affectId, "success")
+		c.JSON(http.StatusOK, rJson)
 	}
-	affectId, _ := result.RowsAffected()
-	rJson = ReturnData(0, affectId, "success")
-	c.JSON(http.StatusOK, rJson)
+
 }
