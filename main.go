@@ -14,7 +14,7 @@ func main() {
 		configFile string
 		port       string
 	)
-	flag.StringVar(&configFile, "c", "./config/config_dev.ini", "please input  config path ,defalt path is ./config/config.ini")
+	flag.StringVar(&configFile, "c", "./config/config.ini", "please input  config path ,defalt path is ./config/config.ini")
 	flag.StringVar(&port, "port", "12345", "please input server port")
 	flag.Parse()
 	utils.ParseConfig(configFile)
